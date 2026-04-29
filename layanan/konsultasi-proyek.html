@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Konsultasi Proyek - BSK Kontraktor</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        /* Gaya sama dengan halaman sebelumnya (konsisten) */
+        .service-hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            padding-top: 80px;
+        }
+        .service-hero .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top,
+                        rgba(0, 40, 80, 0.95) 0%,
+                        rgba(0, 100, 180, 0.6) 40%,
+                        rgba(0, 150, 220, 0.2) 80%,
+                        rgba(0, 200, 255, 0) 100%);
+            z-index: 1;
+        }
+        .service-hero .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+        .service-hero .hero-text {
+            flex: 1;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        .service-hero .hero-image {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.8s ease;
+        }
+        .service-hero .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .service-hero .hero-image:hover img {
+            transform: scale(1.02);
+        }
+        .service-hero .hero-text h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .service-hero .hero-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+        }
+        .service-hero .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+        .service-hero .feature-list li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1rem;
+        }
+        .service-hero .feature-list li i {
+            color: #f39c12;
+            font-size: 1.2rem;
+            width: 24px;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Feature Columns */
+        .feature-columns {
+            padding: 4rem 0;
+            background: #fff;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #0a2b5e, #1e3a8a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+        .feature-icon i {
+            font-size: 2rem;
+            color: #f39c12;
+        }
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #0a2b2e;
+        }
+        .feature-card p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        /* Process Steps */
+        .process-steps {
+            padding: 4rem 0;
+            background: #f9f9f9;
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            position: relative;
+            margin-top: 2rem;
+        }
+        .step-card {
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 2;
+        }
+        .step-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .step-card:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 30%;
+            right: -1.2rem;
+            width: calc(100% + 1.2rem);
+            height: 3px;
+            background: linear-gradient(90deg, #f39c12, #e67e22);
+            z-index: -1;
+            transform: translateY(-50%);
+        }
+        /* Service Detail */
+        .service-detail {
+            padding: 4rem 0;
+        }
+        .service-detail-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .service-detail-left h2 {
+            color: #0a2b2e;
+            margin-bottom: 1rem;
+        }
+        .service-detail-left p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .service-detail-right .detail-box {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+        }
+        .service-detail-right .detail-box h3 {
+            margin-bottom: 1rem;
+            color: #0a2b2e;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .service-detail-right .detail-box h3 i {
+            color: #f39c12;
+        }
+        .service-detail-right ul, .service-detail-right ol {
+            padding-left: 1.2rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .service-detail-right li {
+            margin-bottom: 0.5rem;
+        }
+        /* Responsive */
+        @media (max-width: 992px) {
+            .features-grid, .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .service-hero .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .service-hero .hero-text {
+                text-align: center;
+            }
+            .service-hero .feature-list li {
+                justify-content: center;
+            }
+            .service-hero .hero-text h1 {
+                font-size: 2rem;
+            }
+            .step-card:not(:last-child)::after {
+                display: none;
+            }
+        }
+        @media (max-width: 768px) {
+            .service-hero {
+                min-height: auto;
+                padding: 100px 0 60px;
+            }
+            .service-hero .hero-text h1 {
+                font-size: 1.8rem;
+            }
+            .features-grid, .steps-grid {
+                grid-template-columns: 1fr;
+            }
+            .service-detail-wrapper {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .step-card:not(:last-child)::after {
+                display: block;
+                content: '';
+                position: absolute;
+                bottom: -1.5rem;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 3px;
+                height: 1.5rem;
+                background: linear-gradient(180deg, #f39c12, #e67e22);
+                top: auto;
+                right: auto;
+                z-index: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="logo">
+            <h1>B<span>SK</span></h1>
+            <p>Bangunan & Renovasi Profesional</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html#home">Beranda</a></li>
+                <li><a href="../index.html#layanan">Layanan</a></li>
+                <li><a href="../index.html#proyek">Proyek</a></li>
+                <li><a href="#" class="btn-estimasi">Estimasi Biaya</a></li>
+                <li><a href="../index.html#kontak">Kontak</a></li>
+            </ul>
+            <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero: Teks kiri, gambar kanan -->
+<section class="service-hero" style="background-image: url('https://cms.mortgagemaster.co.id/storage/app/uploads/public/62f/fb1/aea/62ffb1aea01eb683282615.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="hero-text logo" data-aos="fade-right">
+            <h1><span><b>Konsultasi</span> Proyek</b> Profesional & Terpercaya</h1>
+            <p>BSK menyediakan jasa konsultasi konstruksi mulai dari perencanaan, analisis biaya, hingga pengawasan proyek. Kami siap mendampingi Anda dari awal hingga bangunan selesai.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> Analisis kebutuhan & kelayakan proyek</li>
+                <li><i class="fas fa-check-circle"></i> Perhitungan RAB (Rencana Anggaran Biaya)</li>
+                <li><i class="fas fa-check-circle"></i> Pengawasan & supervisi lapangan</li>
+                <li><i class="fas fa-check-circle"></i> Solusi teknis & manajemen risiko</li>
+            </ul>
+            <a href="../index.html#kontak" class="btn">Konsultasi Gratis <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="hero-image" data-aos="fade-left">
+            
+        </div>
+    </div>
+</section>
+
+<!-- 3 Keunggulan Konsultasi -->
+<section class="feature-columns">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Mengapa Konsultasi dengan BSK?</h2>
+            <p>Kami memberikan solusi konstruksi yang matang dan efisien</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Analisis Menyeluruh</h3>
+                <p>Kami menganalisis kebutuhan, kondisi lahan, regulasi, dan potensi kendala teknis untuk memberikan rekomendasi terbaik.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon"><i class="fas fa-calculator"></i></div>
+                <h3>RAB Akurat & Transparan</h3>
+                <p>Dapatkan estimasi biaya yang detail, akurat, dan mudah dipahami. Tidak ada biaya tersembunyi, semua dijelaskan secara terbuka.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon"><i class="fas fa-clipboard-list"></i></div>
+                <h3>Pengawasan Ketat</h3>
+                <p>Kami membantu mengawasi jalannya proyek, memastikan kualitas material, metode kerja, dan jadwal sesuai rencana.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4 Langkah Konsultasi -->
+<section class="process-steps">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Alur Konsultasi Proyek</h2>
+            <p>Proses kolaboratif untuk keberhasilan bangunan Anda</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="step-number">01</div>
+                <h3>Diskusi Kebutuhan</h3>
+                <p>Kami bertemu untuk mendengar gambaran proyek, fungsi bangunan, target biaya, dan jadwal yang diharapkan.</p>
+            </div>
+            <div class="step-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="step-number">02</div>
+                <h3>Survey & Data Lapangan</h3>
+                <p>Tim kami melakukan peninjauan lokasi, pengukuran, dan pengumpulan data teknis yang diperlukan.</p>
+            </div>
+            <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="step-number">03</div>
+                <h3>Penyusunan Proposal & RAB</h3>
+                <p>Kami menyajikan laporan analisis, desain konsep, estimasi biaya, dan rencana kerja secara rinci.</p>
+            </div>
+            <div class="step-card" data-aos="fade-up" data-aos-delay="250">
+                <div class="step-number">04</div>
+                <h3>Pendampingan Implementasi</h3>
+                <p>Jika disepakati, kami dapat mendampingi proses tender, pengawasan konstruksi, hingga serah terima.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Detail Layanan Dua Kolom -->
+<section class="service-detail">
+    <div class="container">
+        <div class="service-detail-wrapper">
+            <div class="service-detail-left" data-aos="fade-right">
+                <h2>Layanan Konsultasi Konstruksi</h2>
+                <p>Baik Anda seorang pemilik rumah yang ingin membangun, pengembang properti, atau kontraktor yang membutuhkan pendampingan teknis, BSK siap membantu. Kami memberikan rekomendasi objektif, studi kelayakan, dan manajemen proyek yang terstruktur.</p>
+                <a href="../index.html#kontak" class="btn">Konsultasi Gratis <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-detail-right" data-aos="fade-left">
+                <div class="detail-box">
+                    <h3><i class="fas fa-bullhorn"></i> Ruang Lingkup Konsultasi</h3>
+                    <ul>
+                        <li>Konsultasi pra-konstruksi (studi kelayakan, izin, desain awal)</li>
+                        <li>Penyusunan RAB (Rencana Anggaran Biaya) detail</li>
+                        <li>Pembuatan jadwal proyek (time schedule)</li>
+                        <li>Rekomendasi metode konstruksi & material</li>
+                        <li>Supervisi dan quality control</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h3><i class="fas fa-user-tie"></i> Keuntungan Konsultasi dengan BSK</h3>
+                    <ul>
+                        <li>Tim konsultan berpengalaman lebih dari 10 tahun</li>
+                        <li>Pendekatan objektif dan solusi inovatif</li>
+                        <li>Laporan terlengkap dan mudah dipahami</li>
+                        <li>Membantu menghemat biaya dan mengurangi risiko</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Bangun Sarana Kontruksi - Jasa Bangunan & Renovasi Terpercaya</p>
+    </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+        }
+    });
+</script>
+</body>
+</html>

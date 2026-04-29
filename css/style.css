@@ -1,4 +1,4 @@
-﻿* {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -67,8 +67,7 @@ nav ul li a:hover {
     cursor: pointer;
 }
 
-/* Hero */
-/* Hero Section - perbaiki spasi agar tidak renggang */
+/* Hero Section - tanpa black overlay, pakai biru transparan */
 .hero {
     position: relative;
     background-image: url('images/DSC05371-scaled-e1764144356911.jpg');
@@ -81,6 +80,16 @@ nav ul li a:hover {
     color: white;
 }
 
+/* Overlay biru transparan (menggantikan .hero::before) */
+.hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 100, 255, 0.5); /* Biru transparan 50% */
+    z-index: 1;
+}
 
 .hero .container {
     position: relative;
@@ -93,34 +102,32 @@ nav ul li a:hover {
     padding: 0 20px;
 }
 
-/* Perkecil margin-bottom agar tidak renggang */
 .hero h1 {
     color: white;
     font-size: 2.8rem;
-    margin-bottom: 0.25rem;   /* diperkecil dari 1rem */
+    margin-bottom: 0.25rem;
     line-height: 1.2;
 }
 
 .hero p {
     color: white;
     font-size: 1.2rem;
-    margin-bottom: 0.5rem;    /* diperkecil dari 2rem */
+    margin-bottom: 0.5rem;
     line-height: 1.4;
 }
 
-/* Atur jarak antar paragraf */
 .hero p:first-of-type {
     margin-bottom: 0.25rem;
 }
 .hero p:last-of-type {
-    margin-bottom: 1.5rem;    /* jarak sebelum tombol */
+    margin-bottom: 1.5rem;
 }
 
 .hero .btn {
     margin-top: 0.5rem;
 }
 
-/* Responsif */
+/* Responsif Hero */
 @media (max-width: 768px) {
     .hero h1 {
         font-size: 1.8rem;
@@ -135,6 +142,7 @@ nav ul li a:hover {
     }
 }
 
+/* Button Umum */
 .btn {
     display: inline-block;
     background: #f39c12;
@@ -173,22 +181,33 @@ nav ul li a:hover {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
 }
+
+/* Efek glassmorphism untuk card layanan */
 .service-card {
-    background: white;
+    background: rgba(0, 120, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
     padding: 2rem;
     text-align: center;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     transition: 0.3s;
+    border: 1px solid rgba(255,255,255,0.2);
 }
 .service-card i {
     font-size: 2.5rem;
     color: #f39c12;
     margin-bottom: 1rem;
 }
+.service-card h3 {
+    color: #0a2b2e;
+}
+.service-card p {
+    color: #2d3436;
+}
 .service-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    background: rgba(0, 120, 255, 0.25);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
 /* Projects */
@@ -200,11 +219,21 @@ nav ul li a:hover {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
+
+/* Efek glassmorphism untuk card proyek */
 .project-card {
-    background: #fff;
-    border-radius: 12px;
+    background: rgba(0, 120, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+.project-card:hover {
+    transform: translateY(-5px);
+    background: rgba(0, 120, 255, 0.2);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
 }
 .project-card img {
     width: 100%;
@@ -213,10 +242,11 @@ nav ul li a:hover {
 }
 .project-card h3 {
     padding: 1rem 1rem 0.5rem;
+    color: #0a2b2e;
 }
 .project-card p {
     padding: 0 1rem 1rem;
-    color: #7f8c8d;
+    color: #2d3436;
 }
 
 /* Contact */
@@ -266,6 +296,7 @@ nav ul li a:hover {
     text-align: center;
 }
 
+/* Footer */
 footer {
     background: #052124;
     color: #aaa;
@@ -274,6 +305,7 @@ footer {
     font-size: 0.9rem;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
@@ -300,16 +332,16 @@ footer {
         margin-left: 0;
         padding-left: 20px;
     }
-    
 }
-/* Animasi teks hero - pastikan transition sudah disiapkan */
+
+/* Animasi teks hero */
 .hero .hero-content > * {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
 
-/* Modal style */
+/* Modal styles */
 .modal {
     display: none;
     position: fixed;
@@ -366,7 +398,6 @@ footer {
     padding: 2rem;
 }
 
-/* Form di dalam modal */
 .modal-body .form-group {
     margin-bottom: 1.2rem;
 }
@@ -438,22 +469,4 @@ footer {
     .row-2col {
         grid-template-columns: 1fr;
     }
-}
-
-.hero .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 100, 255, 0.5); /* Biru transparan 50% */
-    z-index: 1;
-}
-
-.service-card, .project-card {
-    background: rgba(0, 120, 255, 0.2); /* Biru transparan */
-    backdrop-filter: blur(8px); /* Efek blur kaca */
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }

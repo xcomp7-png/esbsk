@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Poppins', 'Segoe UI', sans-serif;
     line-height: 1.6;
@@ -18,14 +23,24 @@ body {
     padding: 0 20px;
 }
 
-/* Header */
+/* ========== HEADER (Glassmorphism Transparan) ========== */
 header {
-    background: #0a2b2e;
-    color: #fff;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 100%;
+    background: transparent;
+    backdrop-filter: none;
+    color: #fff;
     z-index: 100;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: background 0.3s ease, backdrop-filter 0.3s ease, border-bottom 0.3s ease;
+    border-bottom: 1px solid transparent;
+}
+
+header.scrolled {
+    background: rgba(0, 70, 150, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 header .container {
@@ -45,8 +60,9 @@ header .container {
 }
 .logo p {
     font-size: 0.8rem;
-    color: #ddd;
+    color: rgba(255, 255, 255, 0.9);
 }
+
 nav ul {
     display: flex;
     list-style: none;
@@ -67,7 +83,7 @@ nav ul li a:hover {
     cursor: pointer;
 }
 
-/* Hero Section - tanpa black overlay, pakai biru transparan */
+/* ========== HERO SECTION dengan OVERLAY BIRU GRADIEN ========== */
 .hero {
     position: relative;
     background-image: url('images/DSC05371-scaled-e1764144356911.jpg');
@@ -75,21 +91,32 @@ nav ul li a:hover {
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh;
+    width: 100%;
     display: flex;
     align-items: center;
     color: white;
+    padding-top: 80px; /* ruang untuk header fixed */
 }
 
-/* Overlay biru transparan (menggantikan .hero::before) */
+/* Overlay gradien biru dari bawah ke atas (efek cahaya alami) */
 .hero .overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 100, 255, 0.5); /* Biru transparan 50% */
+    background: linear-gradient(to top,
+                rgba(0, 40, 80, 0.95) 0%,
+                rgba(0, 100, 180, 0.6) 40%,
+                rgba(0, 150, 220, 0.2) 80%,
+                rgba(0, 200, 255, 0) 100%);
     z-index: 1;
 }
+
+/* Jika ingin efek blend mode seperti ASTRA (opsional, bisa diaktifkan) */
+/* .hero .overlay {
+    mix-blend-mode: multiply;
+} */
 
 .hero .container {
     position: relative;
@@ -107,6 +134,7 @@ nav ul li a:hover {
     font-size: 2.8rem;
     margin-bottom: 0.25rem;
     line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .hero p {
@@ -114,8 +142,8 @@ nav ul li a:hover {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
     line-height: 1.4;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
-
 .hero p:first-of-type {
     margin-bottom: 0.25rem;
 }
@@ -127,8 +155,18 @@ nav ul li a:hover {
     margin-top: 0.5rem;
 }
 
+/* Animasi teks hero */
+.hero .hero-content > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
 /* Responsif Hero */
 @media (max-width: 768px) {
+    .hero {
+        padding-top: 70px;
+    }
     .hero h1 {
         font-size: 1.8rem;
         margin-bottom: 0.2rem;
@@ -160,7 +198,7 @@ nav ul li a:hover {
     transform: translateY(-3px);
 }
 
-/* Services */
+/* ========== SERVICES ========== */
 .services {
     padding: 5rem 0;
     background: #f9f9f9;
@@ -182,9 +220,9 @@ nav ul li a:hover {
     gap: 2rem;
 }
 
-/* Efek glassmorphism untuk card layanan */
+/* Glassmorphism card layanan */
 .service-card {
-    background: rgba(0, 120, 255, 0.15);
+    background: rgba(0, 120, 255, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 2rem;
@@ -206,11 +244,11 @@ nav ul li a:hover {
 }
 .service-card:hover {
     transform: translateY(-8px);
-    background: rgba(0, 120, 255, 0.25);
+    background: rgba(0, 120, 255, 0.2);
     box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
-/* Projects */
+/* ========== PROJECTS ========== */
 .projects {
     padding: 5rem 0;
 }
@@ -220,9 +258,9 @@ nav ul li a:hover {
     gap: 2rem;
 }
 
-/* Efek glassmorphism untuk card proyek */
+/* Glassmorphism card proyek */
 .project-card {
-    background: rgba(0, 120, 255, 0.1);
+    background: rgba(0, 120, 255, 0.08);
     backdrop-filter: blur(8px);
     border-radius: 20px;
     overflow: hidden;
@@ -232,7 +270,7 @@ nav ul li a:hover {
 }
 .project-card:hover {
     transform: translateY(-5px);
-    background: rgba(0, 120, 255, 0.2);
+    background: rgba(0, 120, 255, 0.15);
     box-shadow: 0 12px 25px rgba(0,0,0,0.15);
 }
 .project-card img {
@@ -249,11 +287,28 @@ nav ul li a:hover {
     color: #2d3436;
 }
 
-/* Contact */
+/* ========== CONTACT ========== */
 .contact {
-    background: #0a2b2e;
+    position: relative;
+    background-image: url('images/bg-kontak.jpg'); /* ganti dengan gambar Anda */
+    background-size: cover;
+    background-attachment: fixed;
     color: white;
     padding: 5rem 0;
+}
+.contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 70, 150, 0.85);
+    z-index: 0;
+}
+.contact .container {
+    position: relative;
+    z-index: 1;
 }
 .contact-wrap {
     display: grid;
@@ -296,7 +351,7 @@ nav ul li a:hover {
     text-align: center;
 }
 
-/* Footer */
+/* ========== FOOTER ========== */
 footer {
     background: #052124;
     color: #aaa;
@@ -305,7 +360,7 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Responsive */
+/* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
@@ -313,7 +368,8 @@ footer {
     nav ul {
         display: none;
         flex-direction: column;
-        background: #0a2b2e;
+        background: rgba(0, 70, 150, 0.95);
+        backdrop-filter: blur(10px);
         position: absolute;
         top: 70px;
         left: 0;
@@ -321,6 +377,7 @@ footer {
         padding: 1rem;
         gap: 1rem;
         text-align: center;
+        z-index: 99;
     }
     nav ul.show {
         display: flex;
@@ -334,14 +391,7 @@ footer {
     }
 }
 
-/* Animasi teks hero */
-.hero .hero-content > * {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-}
-
-/* Modal styles */
+/* ========== MODAL ESTIMASI (tetap seperti sebelumnya) ========== */
 .modal {
     display: none;
     position: fixed;
@@ -353,7 +403,6 @@ footer {
     background-color: rgba(0,0,0,0.7);
     overflow-y: auto;
 }
-
 .modal-content {
     background-color: #fff;
     margin: 30px auto;
@@ -363,12 +412,10 @@ footer {
     box-shadow: 0 20px 35px rgba(0,0,0,0.2);
     animation: slideDown 0.3s ease;
 }
-
 @keyframes slideDown {
     from { transform: translateY(-50px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
-
 .close-modal {
     float: right;
     font-size: 32px;
@@ -377,10 +424,7 @@ footer {
     cursor: pointer;
     padding: 10px 20px;
 }
-.close-modal:hover {
-    color: #f39c12;
-}
-
+.close-modal:hover { color: #f39c12; }
 .modal-header {
     background: #0a2b2e;
     color: white;
@@ -388,19 +432,9 @@ footer {
     border-radius: 28px 28px 0 0;
     text-align: center;
 }
-
-.modal-header h2 {
-    margin: 0;
-    font-size: 1.6rem;
-}
-
-.modal-body {
-    padding: 2rem;
-}
-
-.modal-body .form-group {
-    margin-bottom: 1.2rem;
-}
+.modal-header h2 { margin: 0; font-size: 1.6rem; }
+.modal-body { padding: 2rem; }
+.modal-body .form-group { margin-bottom: 1.2rem; }
 .modal-body select, .modal-body input {
     width: 100%;
     padding: 10px 14px;
@@ -462,11 +496,719 @@ footer {
     text-align: center;
 }
 @media (max-width: 600px) {
-    .modal-content {
-        width: 95%;
-        margin: 20px auto;
-    }
-    .row-2col {
+    .modal-content { width: 95%; margin: 20px auto; }
+    .row-2col { grid-template-columns: 1fr; }
+}
+/* Styling untuk elemen teks yang akan dianimasi */
+#typed-text {
+    display: inline-block; /* Membuat elemen bisa menyesuaikan lebar konten */
+    min-height: 4rem; /* Mencegah lompatan layout saat konten berganti */
+}
+
+/* Efek kursor berkedip untuk memberikan kesan sedang mengetik */
+.typed-cursor {
+    font-size: 2.8rem; /* Sesuaikan dengan ukuran teks judul Anda */
+    font-weight: 100;
+    color: #f39c12;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+
+/* Gaya untuk teks yang sudah diketik */
+.typed-text {
+    color: #f39c12; /* Warna aksen untuk kata yang diketik */
+}
+
+/* ========== WHY US SECTION ========== */
+.why-us {
+    padding: 5rem 0;
+    background: #fff;
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.why-card {
+    background: #fff;
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 100, 255, 0.1);
+}
+
+.why-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    border-color: rgba(0, 100, 255, 0.3);
+}
+
+.why-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #0a2b5e, #1e4a8a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+    transition: 0.3s;
+}
+
+.why-icon i {
+    font-size: 2.5rem;
+    color: #f39c12;
+}
+
+.why-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #0a2b5e;
+}
+
+.why-card p {
+    color: #555;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .why-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .why-card {
+        padding: 1.5rem;
+    }
+    .why-icon {
+        width: 60px;
+        height: 60px;
+    }
+    .why-icon i {
+        font-size: 2rem;
+    }
+}
+/* ========== WHY CHOOSE US ========== */
+.why-choose {
+    padding: 5rem 0;
+    background: #fff;
+}
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+.why-card {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+.why-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+.why-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #0a2b5e, #1e3a8a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+.why-icon i {
+    font-size: 2rem;
+    color: #f39c12;
+}
+.why-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #0a2b2e;
+}
+.why-card p {
+    color: #555;
+    line-height: 1.6;
+}
+
+/* ========== STATS SECTION (Our Projects) ========== */
+.stats {
+    padding: 5rem 0;
+    background: #fff;          /* putih bersih */
+    text-align: center;
+}
+
+.stats .section-header h2 {
+    color: #0a2b2e;
+}
+.stats .section-header p {
+    color: #7f8c8d;
+}
+
+.stats-grid {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 2rem 3rem;
+    background: #f8f9fa;       /* abu sangat tipis, bukan biru */
+    border-radius: 20px;
+    min-width: 240px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+.stat-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.stat-number {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.stat-number .counter {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #0a2b2e;            /* oranye sebagai aksen */
+    line-height: 1;
+}
+.stat-number span:last-child {
+    font-size: 3rem;
+    font-weight: 600;
+    color: #f39c12;
+}
+
+.stat-item p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #2d3436;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        gap: 1.5rem;
+    }
+    .stat-item {
+        padding: 1.5rem 2rem;
+        min-width: 180px;
+    }
+    .stat-number .counter,
+    .stat-number span:last-child {
+        font-size: 2.5rem;
+    }
+    .stat-item p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        gap: 2rem;
+    }
+    .stat-number .counter {
+        font-size: 3rem;
+    }
+    .stat-number span:last-child {
+        font-size: 2.5rem;
+    }
+    .why-card {
+        padding: 1.5rem;
+    }
+}
+
+/* Hero Statistics - ditempatkan di bagian bawah hero, di atas overlay */
+.hero-stats {
+    position: relative;
+    z-index: 2;
+    margin-top: 4rem;
+    padding-bottom: 3rem;
+}
+
+.hero-stats-grid {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.hero-stats .stat-item {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    min-width: 180px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-stats .stat-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.hero-stats .stat-number {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-stats .counter {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #f39c12;
+    line-height: 1;
+}
+
+.hero-stats .stat-number span:last-child {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #f39c12;
+}
+
+.hero-stats .stat-item p {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    /* Hero Statistics - lebih rapat */
+/* Hero Statistics - Rapat namun sedikit renggang */
+.hero-stats {
+    position: relative;
+    z-index: 2;
+    margin-top: 2.5rem;
+    padding-bottom: 2rem;
+}
+
+.hero-stats-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;          /* jarak antar item cukup renggang */
+    flex-wrap: wrap;
+}
+
+.hero-stats .stat-item {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 0.6rem 1.2rem;   /* nyaman */
+    min-width: 130px;         /* lebar minimal agar tidak terlalu sempit */
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-stats .stat-item:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.hero-stats .stat-number {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.hero-stats .counter {
+    font-size: 1.8rem;      /* angka cukup besar tapi tidak dominan */
+    font-weight: 800;
+    color: #f39c12;
+    line-height: 1.2;
+}
+
+.hero-stats .stat-number span:last-child {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #f39c12;
+}
+
+.hero-stats .stat-item p {
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Responsif: di HP gap dikurangi sedikit */
+@media (max-width: 550px) {
+    .hero-stats-grid {
+        gap: 1rem;
+    }
+    .hero-stats .stat-item {
+        padding: 0.5rem 1rem;
+        min-width: 110px;
+    }
+    .hero-stats .counter {
+        font-size: 1.4rem;
+    }
+    .hero-stats .stat-number span:last-child {
+        font-size: 1.2rem;
+    }
+    .hero-stats .stat-item p {
+        font-size: 0.65rem;
+    }
+}
+
+/* Tombol Lihat Layanan pada card */
+.btn-service {
+    display: inline-block;
+    margin-top: 1.2rem;
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid #f39c12;
+    color: #f39c12;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-service:hover {
+    background: #f39c12;
+    color: #1a2a2a;
+    transform: translateY(-2px);
+}
+
+/* Page Hero untuk halaman layanan */
+.page-hero {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+    margin-top: 70px;
+}
+.page-hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 40, 80, 0.7);
+    z-index: 1;
+}
+.page-hero .container {
+    position: relative;
+    z-index: 2;
+}
+.page-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+.page-hero p {
+    font-size: 1.2rem;
+}
+
+/* Service Detail */
+.service-detail {
+    padding: 4rem 0;
+}
+.service-detail-content h2 {
+    color: #0a2b2e;
+    margin-bottom: 1rem;
+}
+.service-detail-content h3 {
+    margin: 1.5rem 0 0.5rem;
+    color: #0a2b2e;
+}
+.service-detail-content p, .service-detail-content li {
+    line-height: 1.6;
+    color: #2d3436;
+}
+.service-detail-content ul, .service-detail-content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+.service-detail-content .btn {
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .page-hero {
+        min-height: 30vh;
+        margin-top: 60px;
+    }
+    .page-hero h1 {
+        font-size: 1.8rem;
+    }
+}
+
+/* ========== HALAMAN LAYANAN (BANGUNAN BARU, DLL.) ========== */
+.service-showcase {
+    padding: 5rem 0;
+    background: #fff;
+}
+.showcase-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+.showcase-image {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 35px -10px rgba(0,0,0,0.2);
+}
+.showcase-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+.showcase-image:hover img {
+    transform: scale(1.03);
+}
+.image-badge {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    padding: 8px 16px;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    color: #f39c12;
+    font-weight: 600;
+}
+.showcase-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #0a2b2e;
+}
+.showcase-content .lead {
+    font-size: 1.1rem;
+    color: #4a5568;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+.feature-list {
+    margin: 2rem 0;
+}
+.feature-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.feature-item i {
+    font-size: 1.5rem;
+    color: #f39c12;
+    margin-top: 0.2rem;
+}
+.feature-item h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    color: #0a2b2e;
+}
+.feature-item p {
+    color: #4a5568;
+    font-size: 0.9rem;
+}
+.cta-wrapper {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+.btn-primary {
+    background: #f39c12;
+    color: #1a2a2a;
+    border: none;
+}
+.btn-primary:hover {
+    background: #e67e22;
+    transform: translateY(-3px);
+}
+.btn-outline {
+    background: transparent;
+    border: 1px solid #f39c12;
+    color: #f39c12;
+}
+.btn-outline:hover {
+    background: #f39c12;
+    color: #1a2a2a;
+}
+
+/* Advantages */
+.advantages {
+    padding: 5rem 0;
+    background: #f8fafc;
+}
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+.advantage-card {
+    background: white;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 24px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+.advantage-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1);
+}
+.advantage-card i {
+    font-size: 2.5rem;
+    color: #f39c12;
+    margin-bottom: 1rem;
+}
+.advantage-card h3 {
+    margin-bottom: 0.5rem;
+    color: #0a2b2e;
+}
+.advantage-card p {
+    color: #4a5568;
+}
+
+/* Process Steps */
+.process {
+    padding: 5rem 0;
+    background: #fff;
+}
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+.step {
+    text-align: center;
+    padding: 1.5rem;
+    position: relative;
+}
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #0a2b5e, #1e3a8a);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+}
+.step h3 {
+    margin-bottom: 0.5rem;
+    color: #0a2b2e;
+}
+.step p {
+    color: #4a5568;
+}
+
+/* CTA Banner */
+.cta-banner {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #0a2b5e, #071a3a);
+    color: white;
+    text-align: center;
+}
+.cta-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+.cta-content p {
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+.btn-large {
+    padding: 14px 35px;
+    font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .showcase-image {
+        order: 1;
+    }
+    .showcase-content {
+        order: 2;
+    }
+}
+@media (max-width: 768px) {
+    .process-steps {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .cta-wrapper {
+        flex-direction: column;
+    }
+    .advantage-card {
+        padding: 1.5rem;
+    }
+}
+/* QR Code WhatsApp */
+.qr-wa {
+    margin-top: 2rem;
+    text-align: center;
+}
+.qr-wa p {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    color: rgba(255,255,255,0.9);
+}
+#qrcode-wa {
+    display: inline-block;
+    background: white;
+    padding: 8px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+#qrcode-wa img {
+    display: block;
+    width: 85px;
+    height: auto;
+}
+@media (max-width: 768px) {
+    #qrcode-wa img {
+        width: 85px;
     }
 }

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bangunan Baru - BSK Kontraktor</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        /* Additional styles for service page */
+        .service-hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            padding-top: 80px;
+        }
+        .service-hero .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top,
+                        rgba(0, 40, 80, 0.95) 0%,
+                        rgba(0, 100, 180, 0.6) 40%,
+                        rgba(0, 150, 220, 0.2) 80%,
+                        rgba(0, 200, 255, 0) 100%);
+            z-index: 1;
+        }
+        .service-hero .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+        .service-hero .hero-image {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.8s ease;
+        }
+        .service-hero .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .service-hero .hero-image:hover img {
+            transform: scale(1.02);
+        }
+        .service-hero .hero-text {
+            flex: 1;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        .service-hero .hero-text h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .service-hero .hero-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+        }
+        .service-hero .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+        .service-hero .feature-list li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1rem;
+        }
+        .service-hero .feature-list li i {
+            color: #f39c12;
+            font-size: 1.2rem;
+            width: 24px;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Feature Columns 3 kolom */
+        .feature-columns {
+            padding: 4rem 0;
+            background: #fff;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #0a2b5e, #1e3a8a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+        .feature-icon i {
+            font-size: 2rem;
+            color: #f39c12;
+        }
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #0a2b2e;
+        }
+        .feature-card p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        /* Process Steps 4 langkah */
+        .process-steps {
+            padding: 4rem 0;
+            background: #f9f9f9;
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .step-card {
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .step-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: rgba(243, 156, 18, 0.2);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        .step-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: #0a2b2e;
+        }
+        .step-card p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        /* Service Detail dua kolom */
+        .service-detail {
+            padding: 4rem 0;
+        }
+        .service-detail-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .service-detail-left h2 {
+            color: #0a2b2e;
+            margin-bottom: 1rem;
+        }
+        .service-detail-left p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .service-detail-right .detail-box {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+        }
+        .service-detail-right .detail-box h3 {
+            margin-bottom: 1rem;
+            color: #0a2b2e;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .service-detail-right .detail-box h3 i {
+            color: #f39c12;
+        }
+        .service-detail-right ul, .service-detail-right ol {
+            padding-left: 1.2rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .service-detail-right li {
+            margin-bottom: 0.5rem;
+        }
+        /* Responsive */
+        @media (max-width: 992px) {
+            .features-grid, .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .service-hero .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .service-hero .hero-text {
+                text-align: center;
+            }
+            .service-hero .feature-list li {
+                justify-content: center;
+            }
+            .service-hero .hero-text h1 {
+                font-size: 2rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .service-hero {
+                min-height: auto;
+                padding: 100px 0 60px;
+            }
+            .service-hero .hero-text h1 {
+                font-size: 1.8rem;
+            }
+            .features-grid, .steps-grid {
+                grid-template-columns: 1fr;
+            }
+            .service-detail-wrapper {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+		
+		
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="container">
+        <div class="logo">
+            <h1>B<span>SK</span></h1>
+            <p>Bangunan & Renovasi Profesional</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html#home">Beranda</a></li>
+                <li><a href="../index.html#layanan">Layanan</a></li>
+                <li><a href="../index.html#proyek">Proyek</a></li>
+                <li><a href="#" class="btn-estimasi">Estimasi Biaya</a></li>
+                <li><a href="../index.html#kontak">Kontak</a></li>
+            </ul>
+            <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero Section: Full background overlay + image left, text right -->
+<section class="service-hero" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1171&q=80');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="hero-image" data-aos="fade-right">
+            <img src="https://asset.kompas.com/crops/x5gmRVWN7ymzwsz7k0NVtOqBlvM=/100x67:900x600/1200x800/data/photo/2020/12/23/5fe2932454f98.jpg" alt="Bangunan Baru">
+        </div>
+        <div class="hero-text logo" data-aos="fade-left">
+            <h1>Jasa <span>Kontraktor</span> Bangunan & Rumah</h1>
+            <p>BSK melayani berbagai proyek konstruksi bangunan dan rumah di Indramayu dan sekitarnya.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> Jasa kontraktor rumah profesional</li>
+                <li><i class="fas fa-check-circle"></i> Jasa kontraktor bangunan berskala besar</li>
+                <li><i class="fas fa-check-circle"></i> Gratis survei & estimasi biaya</li>
+                <li><i class="fas fa-check-circle"></i> Desain & bangun satu paket</li>
+            </ul>
+            <a href="../index.html#kontak" class="btn">Konsultasi Gratis <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- 3 Kolom Keunggulan (Harga Fleksibel, Jangkauan Proyek, Booking Mudah) -->
+<section class="feature-columns">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Mengapa Memilih BSK?</h2>
+            <p>Kemudahan dan kepastian untuk proyek Anda</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <h3>Harga Fleksibel & Transparan</h3>
+                <p>Biaya jasa kontraktor rumah kami disesuaikan dengan kebutuhan dan tipe bangunan. Tersedia sistem borongan, RAB lengkap, dan opsi cicilan ringan.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3>Jangkauan Proyek Luas</h3>
+                <p>Kami melayani proyek di Indramayu, Jakarta, Bekasi, Bogor, Tangerang, BSD, Sukabumi, hingga Surabaya & Jogja. Didukung tim profesional berpengalaman.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <h3>Booking Mudah & Cepat</h3>
+                <p>Konsultasi langsung via WhatsApp, tanpa ribet. Jadwalkan survei dan dapatkan estimasi biaya jasa kontraktor bangun rumah secara GRATIS.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4 Langkah Proses Kerja dengan Progress Line -->
+<section class="process-steps">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Proses Kerja Kami</h2>
+            <p>Langkah mudah menuju bangunan impian Anda</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="step-number">01</div>
+                <h3>Konsultasi Awal</h3>
+                <p>Kami akan menjadwalkan pertemuan untuk mendengarkan kebutuhan Anda baik untuk jasa kontraktor rumah Indramayu, Jakarta, hingga luar kota. Anda dapat menjelaskan tipe bangunan, budget, serta kebutuhan arsitektur.</p>
+            </div>
+            <div class="step-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="step-number">02</div>
+                <h3>Survei Lokasi</h3>
+                <p>Tim jasa kontraktor akan melakukan pengukuran dan pengumpulan data lapangan. Cocok untuk Anda yang belum memiliki denah atau gambar kerja.</p>
+            </div>
+            <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="step-number">03</div>
+                <h3>Penyusunan Desain</h3>
+                <p>Kami akan mulai membuat konsep berdasarkan kebutuhan. Desain akan dikerjakan oleh tim jasa arsitek dan kontraktor yang sudah berpengalaman menangani rumah tinggal maupun bangunan skala besar.</p>
+            </div>
+            <div class="step-card" data-aos="fade-up" data-aos-delay="250">
+                <div class="step-number">04</div>
+                <h3>Presentasi Desain</h3>
+                <p>Desain akan dipresentasikan kepada Anda. Kami menerima revisi dan masukan sebelum masuk ke tahap jasa kontraktor bangun rumah dan pembuatan RAB.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Detail Layanan Dua Kolom (Keunggulan & Proses Pengerjaan) -->
+<section class="service-detail">
+    <div class="container">
+        <div class="service-detail-wrapper">
+            <div class="service-detail-left" data-aos="fade-right">
+                <h2>Layanan Pembangunan Bangunan Baru</h2>
+                <p>Kami menyediakan jasa pembangunan rumah tinggal, ruko, gedung perkantoran, dan bangunan komersial lainnya. Dengan tim arsitek dan insinyur berpengalaman, kami memastikan setiap proyek berjalan sesuai rencana, tepat waktu, dan sesuai anggaran.</p>
+                <a href="../index.html#kontak" class="btn">Konsultasi Gratis <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-detail-right" data-aos="fade-left">
+                <div class="detail-box">
+                    <h3><i class="fas fa-star"></i> Keunggulan Layanan Kami</h3>
+                    <ul>
+                        <li>Desain struktur sesuai standar SNI</li>
+                        <li>Penggunaan material berkualitas</li>
+                        <li>Pengerjaan oleh tenaga profesional</li>
+                        <li>Pengawasan proyek ketat</li>
+                        <li>Garansi pengerjaan</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h3><i class="fas fa-chart-line"></i> Proses Pengerjaan</h3>
+                    <ol>
+                        <li>Konsultasi dan survei lokasi</li>
+                        <li>Perancangan desain dan RAB</li>
+                        <li>Pekerjaan pondasi & struktur</li>
+                        <li>Pembangunan dinding, atap, dan finishing</li>
+                        <li>Serah terima dan setelah jual</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Bangun Sarana Kontruksi - Jasa Bangunan & Renovasi Terpercaya</p>
+    </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+    // Untuk memastikan AOS refresh jika diperlukan
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+        }
+    });
+</script>
+</body>
+</html>
